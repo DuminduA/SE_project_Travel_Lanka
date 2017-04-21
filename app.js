@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
 
 var index = require('./routes/index');
+var home_route = require('./routes/home');
+var profile_route = require('./routes/profile');
 
 
 
@@ -26,7 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/home', home_route);
+app.use('/profile', profile_route);
 app.use('/', index);
+
 
 
 // catch 404 and forward to error handler
