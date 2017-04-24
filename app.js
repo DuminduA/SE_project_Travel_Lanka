@@ -5,15 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressHbs = require('express-handlebars');
-
+var mongoose = require('mongoose');
 var index = require('./routes/index');
 var home_route = require('./routes/home');
 var profile_route = require('./routes/profile');
-
+var mongo = require('mongodb');
 
 
 var app = express();
 
+mongoose.connect('localhost:27017/DB_TravelLanka');
 app.use(express.static(__dirname + '/public'));
 
 // view engine setup
