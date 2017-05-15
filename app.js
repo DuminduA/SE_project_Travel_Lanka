@@ -32,7 +32,7 @@ var guide_route = require('./routes/guide');
 
 var app = express();
 
-mongoose.connect('localhost:27017/DB_TravelLanka'); // connect to the mongodb server and use the DB_Travel Lanka database
+mongoose.connect('https://travel-lanka1.herokuapp.com/:27017/DB_TravelLanka'); // connect to the mongodb server and use the DB_Travel Lanka database
 
 require('./config/passport'); // importing the authentication. only this way express knows the implementation
 app.use(express.static(__dirname + '/public'));
