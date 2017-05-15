@@ -1,0 +1,74 @@
+<style>
+
+    body{
+        padding-top: 50px;
+    }
+    #badge{
+        position: absolute;
+        right :30px;
+    }
+
+
+</style>
+
+<div class="container">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+
+        <h1>Available Guides ....</h1>
+
+
+        {{# each guide}}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            {{#if this.available}}
+                            <h4 id="badge"><span class="label label-success"  >Available</span></h4>
+                                {{else}}
+                                    <h4 id="badge"><span class="label label-danger"  >Not Available</span></h4>
+                            {{/if}}
+                        <h4>Name: </h4>   <h4><strong> {{this.name}} </strong></h4> <br>
+                         <h4>Works in:</h4>   <h4><strong>  {{this.AddressLine1}} </h4></strong><br>
+                          <h4> Telephone: </h4>  <h4><strong> {{this.telephone}} </h4></strong><br>
+                            <a type="button"  id="hire" class="btn btn-success" href="" >Hire</a><br>
+
+                           <form action="/guide/notification/{{this._id}}" id="contact">Contact Number:<input type="text" id="tp" name="tele">
+                               <input type="hidden" value="{{this.name}}" name="guide_name">
+                               <button  type="submit" id="{{this._id}}">ok</button>
+                           </form>
+
+
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+    {{/each}}
+    </div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('button#hire').on('click',function () {
+            $('div#contact').show();
+        });
+    });
+    $('div#contact').hide();
+</script>

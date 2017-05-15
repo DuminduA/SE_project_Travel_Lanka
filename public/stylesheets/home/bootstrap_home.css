@@ -9,6 +9,30 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+#h1{
+  font-weight: bolder;
+  color: red;
+}
+
+#details{
+  padding-top: 50px;
+}
+#form_profile_details{
+
+  padding-top: 20px;
+
+}
+
+#labal{
+  font-weight: bolder;
+  color: #337ab7;
+}
+
+footer{
+  color:#3582a0;
+  padding-left: 500px;
+
+}
 body {
   margin: 0;
 

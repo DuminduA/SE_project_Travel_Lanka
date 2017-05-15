@@ -1,63 +1,120 @@
 <!-- Page Content -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script>
+
+
+    $('document').ready(function(){
+
+        $('#createpost').hide();
+        $('#createpostbtn').on('click',function () {
+            $('#createpost').show();
+        });
+        $('#cancel_post').on('click',function () {
+            $('#createpost').fadeout();
+        });
+
+
+
+    });
+</script>
+
+
+
 <div class="container">
 
-    <div class="row">
+
+
+
+
 
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
             <h1 class="page-header">
-                Page Heading
-                <small>Secondary Text</small>
+                Welcome {{user_name}}
+                <small>have a nice day...</small>
             </h1>
 
+            <div id="createpost">
+
+                <form action="/post/upload" method="POST" enctype="multipart/form-data">
+                    <p ng-show="true"><p class="lead">
+                    <input id="title" size="50" name="title" value="type the TITLE here... "/>
+                <textarea cols="60" rows="10" id="create_post" name="create_post">
+                </textarea>
+                    Select an image to upload:
+                    <input type="file" name="image">
+                    <!--<input type="submit" value="Upload Image">-->
+
+                <button  class="btn btn-danger" id="cancel_post">Cancel post</button>
+                <button  class="btn btn-success" type="submit">OK</button>
+
+            </p></p>
+                </form>
+            </div>
+
+            {{#each notifications}}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h4><strong> {{this.tourist_name}} | {{this.telephone}} </strong> Send you a Hire Request >>></h4>
+                                <a type="button"  id="hire" class="btn btn-success" href="/guide/accept/{{this._id}}" >Accept</a>
+                                <a type="button"  id="hire" class="btn btn-danger" href="/guide/reject/{{this._id}}" >Reject</a><br>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {{/each}}
+
+
             <!-- First Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            {{# each posts}}
+                <div >
+                <h2>
+                    <a href="#">{{this.title}}</a>
+                </h2>
+                <p class="lead">
+                    by <a href="index.php">{{this.posted_by}}</a>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{this.date}} at {{this.time}}</p>
+                <hr>
+                <img class="img-responsive" src="{{this.image_path}}" alt="">
+                <hr>
+                <p>{{this.text}}</p>
 
-            <hr>
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/post/like/{{this._id}}" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>
+                    <a href="/post/dislike/{{this._id}}" id="" type="button" class="btn btn-link"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        DisLike  {{this.dislikes}}</a>
+                </div>
 
-            <!-- Second Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <!--<input type="hidden" id="id_post" name="_id" value="{{this._id}}">-->
+                <button type="button" class="btn btn-link"><i class="fa fa-commenting" aria-hidden="true"></i> Comment</button>
+                <a  href="/post/delete/{{this._id}}"  id="{{this._id}}" class="btn btn-link"><i class="fa fa-trash-o" aria-hidden="true"></i> delete post</a>
+                </div>
+                <form action="/comment/post/{{this._id}}">
+                    <div class="row">
+                        <input type="text" name="comment" value="write a comment.">
+                        <button type="submit" href="" class="btn btn-link">ok</button>
+                    </div>
+                    <!--<a href="/comment/show/{{this._id}}" class="btn btn-link">Show all comments</a>-->
+                    <hr>
+                </form>
+                {{#each this.Comments}}
 
-            <hr>
+                    <div class="alert alert-warning" role="alert">{{this.user}}<br>{{this.text}}</div>
 
-            <!-- Third Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
-            <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    {{/each}}
 
-            <hr>
+            {{/each}}
+
+
+
+
+
+
 
             <!-- Pager -->
             <ul class="pager">
@@ -90,30 +147,30 @@
 
             <!-- Blog Categories Well -->
             <div class="well">
-                <h4>Blog Categories</h4>
+                <h4>Need to Find specific posts? Look here <i class="fa fa-smile-o" aria-hidden="true"></i></h4>
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="list-unstyled">
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">High Rated</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">New Posts</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Bookmarks</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Hotels</a>
                             </li>
                         </ul>
                     </div>
                     <!-- /.col-lg-6 -->
                     <div class="col-lg-6">
                         <ul class="list-unstyled">
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Fun Places</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Historical places</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Beaches</a>
                             </li>
-                            <li><a href="#">Category Name</a>
+                            <li><a href="#">Guides</a>
                             </li>
                         </ul>
                     </div>
@@ -124,10 +181,25 @@
 
             <!-- Side Widget Well -->
             <div class="well">
-                <h4>Side Widget Well</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+                <h4>Hello User .....</h4>
+                <p>Hope You are enjoying......</p>
             </div>
+            <button type="button"  class="btn btn-success" id="createpostbtn">Create a Post</button>
 
+
+            {{#if user_type}}
+
+            <a type="button" href="/guide/hire" class="btn btn-success" id="Hire">Hire a Guide</a>
+
+        {{/if}}
+            {{#if guide}}
+                {{#if available}}
+                <a type="button" href="/guide/not_available" class="btn btn-success" id="available">Available</a>
+                    {{else}}
+                    <a type="button" href="/guide/available" class="btn btn-danger" id="not_available">Not Available</a>
+
+                {{/if}}
+            {{/if}}
         </div>
 
     </div>

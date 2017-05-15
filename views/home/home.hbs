@@ -12,30 +12,54 @@
             </h1>
 
             <!-- First Blog Post -->
-            <h2>
-                <a href="#">Blog Post Title</a>
-            </h2>
-            <p class="lead">
-                by <a href="index.php">Start Bootstrap</a>
-            </p>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-            <hr>
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-            <!--<a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>-->
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-success"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  2153</button>
-                <button type="button" class="btn btn-danger"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                     DisLike  256</button>
-            </div>
-            <button type="button" class="btn btn-default"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+            {{# each posts}}
+
+                <h2>
+                    <a href="#">{{this.title}}</a>
+                </h2>
+                <p class="lead">
+                    by <a href="index.php">{{this.posted_by}}</a>
+                </p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{this.date}} at {{this.time}}</p>
+                <hr>
+                <img class="img-responsive" src="{{this.image_path}}" alt="">
+                <hr>
+                <p>{{this.text}}</p>
 
 
+                {{#if @root.loggedin1}}
 
-            <hr>
+                <div class="btn-group" role="group" aria-label="...">
+                    <a href="/post/like/{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>
+                    <a  href="/post/dislike/{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                        DisLike  {{this.dislikes}}</a>
+                </div>
+                <button type="button" class="btn btn-link"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
+                <button type="button" class="btn btn-link"><i class="fa fa-commenting" aria-hidden="true"></i> Comment</button>
+                <form action="/comment/post/{{this._id}}">
+                    <div class="row">
+                        <input type="text" name="comment" value="write a comment.">
+                        <button type="submit" href="" class="btn btn-link">ok</button>
+                    </div>
+                    <!--<a href="/comment/show/{{this._id}}" class="btn btn-link">Show all comments</a>-->
+                    <hr>
+                </form>
+                    {{/if}}
+                {{#each this.Comments}}
+
+                    <div class="alert alert-warning" role="alert">{{this.user}}<br>{{this.text}}</div>
+
+                {{/each}}
+
+                <hr>
+
+
+                {{/each}}
+
 
             <!-- Second Blog Post -->
+
+
 
             <!-- Pager -->
             <ul class="pager">
