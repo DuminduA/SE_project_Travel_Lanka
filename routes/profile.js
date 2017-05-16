@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var postsController = require('../controllers/PostController');
+var posts = require('./../models/post');
+var notifications = require('./../models/notification');
+var likes = require('./../models/likes');
+var comments = require('./../models/comment');
+
+var postsController = require('../controllers/PostController')(posts,notifications,likes,comments);
 
 // to have csrf protection. this will maintain sessions. so the server cam know what browser
 // initiated the session using the csrfToken

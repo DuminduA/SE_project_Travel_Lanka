@@ -2,7 +2,12 @@
 var express = require('express');
 var router = express.Router();
 var guide = require('../models/ServiceProvider');
-var GuideController = require('../controllers/GuideController');
+
+var ServiceProvider = require('../models/ServiceProvider');
+var Notification = require('../models/notification');
+
+
+var GuideController = require('../controllers/GuideController')(ServiceProvider,Notification);
 
 
 

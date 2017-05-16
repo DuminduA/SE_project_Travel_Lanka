@@ -35,4 +35,16 @@ router.get('/main', function(req, res, next) {
 });
 
 
+
+
+router.get('/search',function (req,res) {
+    console.log(req.body);
+    res.render('home/search',{layout:"layout2",search_text:req.body.search_text});
+});
+
+router.post('/search',function (req,res) {
+    console.log(req.body);
+    res.render('home/search',{layout:"layout2",search_text:req.body.search_text});
+});
+
 module.exports = router;

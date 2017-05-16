@@ -5,8 +5,15 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
-var posts = require('../models/post');
-var PostController = require('../controllers/PostController');
+
+
+var posts = require('./../models/post');
+var notifications = require('./../models/notification');
+var likes = require('./../models/likes');
+var comments = require('./../models/comment');
+
+
+var PostController = require('../controllers/PostController')(posts,notifications,likes,comments);
 
 var uploading = multer({
     dest:  'public/uploads/',
