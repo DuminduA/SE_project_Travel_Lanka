@@ -9,7 +9,15 @@ describe("Comments Controller",function () {
         it("should return true",function () {
             expect(true).toBe(true);    
         })
-    })
+    });
+    
+    describe('post',function () {
+        it("should return true",function () {
+            expect(true).toBe(true);
+        })
+    });
+
+
     
     
 
