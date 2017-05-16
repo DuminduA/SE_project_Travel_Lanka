@@ -11,12 +11,22 @@
             $('#createpost').show();
         });
         $('#cancel_post').on('click',function () {
-            $('#createpost').fadeout();
+            $('#createpost').hide();
         });
 
 
 
     });
+
+    function addLike(id) {
+        $.ajax({
+            url : '/post/like/' + id,
+            method : 'POST',
+            success : function (res) {
+
+            }
+        })
+    }
 </script>
 
 
@@ -47,7 +57,7 @@
                     <input type="file" name="image">
                     <!--<input type="submit" value="Upload Image">-->
 
-                <button  class="btn btn-danger" id="cancel_post">Cancel post</button>
+                <a  class="btn btn-danger" id="cancel_post">Cancel post</a>
                 <button  class="btn btn-success" type="submit">OK</button>
 
             </p></p>
@@ -85,7 +95,8 @@
                 <p>{{this.text}}</p>
 
                 <div class="btn-group" role="group" aria-label="...">
-                    <a href="/post/like/{{this._id}}" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>
+                    <a onclick="addLike(this._id)" href="/post/like/{{this._id}}" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>
+                    <!--<a onclick="addLike(this._id)" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>-->
                     <a href="/post/dislike/{{this._id}}" id="" type="button" class="btn btn-link"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
                         DisLike  {{this.dislikes}}</a>
                 </div>
