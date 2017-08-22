@@ -92,10 +92,11 @@ var GuideController = function (ServiceProvider,Notification) {
             });
             res.redirect('/profile/profile');
         });
-    }
+    };
 
 
-    var reject = function (res,req) {
+    var reject = function (req,res) {
+        console.log(req);
         var notification_id = req.params.id;
 
         Notification.findById(notification_id,function (err,result) {

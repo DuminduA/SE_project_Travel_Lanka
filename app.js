@@ -32,8 +32,8 @@ var guide_route = require('./routes/guide');
 
 
 var app = express();
-// mongoose.connect('localhost:27017/DB_TravelLanka'); // connect to the mongodb server and use the DB_Travel Lanka database
-mongoose.connect('mongodb://dumindu:travellanka@ds143201.mlab.com:43201/travel_lanka'); // connect to the mongodb server and use the DB_Travel Lanka database
+mongoose.connect('localhost:27017/DB_TravelLanka'); // connect to the mongodb server and use the DB_Travel Lanka database
+// mongoose.connect('mongodb://dumindu:travellanka@ds143201.mlab.com:43201/travel_lanka'); // connect to the mongodb server and use the DB_Travel Lanka database
 
 
 
