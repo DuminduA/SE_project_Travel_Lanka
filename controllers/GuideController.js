@@ -1,12 +1,20 @@
 /**
- * Created by dumindu on 12/05/2017.
+ * Controller method for Guilds
+ * 
+ * @param ServiceProvider
+ * @param Notification
+ * @returns {{get: get, available: available, not_available: not_available, send_notification: send_notification, accept: accept, reject: reject}}
+ * @constructor
  */
-
-
 
 var GuideController = function (ServiceProvider,Notification) {
 
-
+    /**
+     * Method to get a Guide
+     * 
+     * @param req
+     * @param res
+     */
     var get = function (req,res) {
         ServiceProvider.find({user_type:'Guide'},function (err,sp) {
             if(err){
@@ -15,8 +23,14 @@ var GuideController = function (ServiceProvider,Notification) {
             res.render('guide/hireguide',{layout:'layout2',guide:sp});
         })
 
-    }
+    };
 
+    /**
+     * Method to check whether guide is available
+     * 
+     * @param req
+     * @param res
+     */
     var available = function (req,res) {
         ServiceProvider.findById(req.user._id,function (err,user) {
                 if(err){
@@ -26,13 +40,16 @@ var GuideController = function (ServiceProvider,Notification) {
                     if (err){res.send(err);}
                 });
                 res.redirect('/profile/profile');
-
             }
-
         );
-
     };
 
+    /**
+     * Method to check guide is not available
+     * 
+     * @param req
+     * @param res
+     */
     var not_available = function (req,res) {
         ServiceProvider.findById(req.user._id,function (err,user) {
                 if(err){res.send(err);}
@@ -46,11 +63,15 @@ var GuideController = function (ServiceProvider,Notification) {
 
         );
 
-    }
+    };
 
-
+    /**
+     * Method to send notifications to tourists
+     * 
+     * @param req
+     * @param res
+     */
     var send_notification = function (req,res) {
-
         var notification = new Notification();
         var date = new Date().getDate();
         var Month = new Date().getMonth();
@@ -67,19 +88,19 @@ var GuideController = function (ServiceProvider,Notification) {
         notification.date = date.toString() + "/ " + Month.toString() + "/ " + Year.toString();
         notification.time =Hours.toString() + " Hr: " + Minutes.toString() + "Min: " + Seconds.toString() + "Secs";
         notification.status = "Pending";
-
-
-
-
-
+        
         notification.save(function (err,result) {
             if(err){return res.send(err);}
             return res.redirect('/guide/hire');
         });
-
     };
 
-
+    /**
+     * Method to accept Guide request(which the tourist send to the guide)
+     * 
+     * @param req
+     * @param res
+     */
     var accept = function (req,res) {
         console.log(req.params);
         var notification_id = req.params.id;
@@ -94,7 +115,11 @@ var GuideController = function (ServiceProvider,Notification) {
         });
     };
 
-
+    /**
+     * Method to reject the Guide Request(which the tourist send to the guide)
+     * @param req
+     * @param res
+     */
     var reject = function (req,res) {
         console.log(req);
         var notification_id = req.params.id;
@@ -107,7 +132,7 @@ var GuideController = function (ServiceProvider,Notification) {
             });
             res.redirect('/profile/profile');
         });
-    }
+    };
         return {
             get:get,
             available:available,
@@ -115,9 +140,7 @@ var GuideController = function (ServiceProvider,Notification) {
             send_notification:send_notification,
             accept:accept,
             reject:reject
-            
         }
-}
-
+};
 
 module.exports = GuideController;

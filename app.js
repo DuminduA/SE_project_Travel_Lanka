@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');      // importing the dependencies
@@ -11,13 +14,8 @@ var session = require('express-session'); // this package will create sessions
 var passport = require('passport');// authentication
 var validator = require('express-validator');
 
-
 // this package is for flash messages. messages stored in the session.cam be shown in voew
 var connect_flash = require('connect-flash');
-
-
-
-
 
 var index = require('./routes/index');
 var home_route = require('./routes/home');    // imports router files
@@ -34,10 +32,6 @@ var guide_route = require('./routes/guide');
 var app = express();
 mongoose.connect('localhost:27017/DB_TravelLanka'); // connect to the mongodb server and use the DB_Travel Lanka database
 // mongoose.connect('mongodb://dumindu:travellanka@ds143201.mlab.com:43201/travel_lanka'); // connect to the mongodb server and use the DB_Travel Lanka database
-
-
-
-
 
 require('./config/passport'); // importing the authentication. only this way express knows the implementation
 app.use(express.static(__dirname + '/public'));
@@ -63,20 +57,40 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));      // use the dependencies
 
-
 app.use(function (req,res,next) {
   res.locals.loggedin = req.isAuthenticated();
   next();
 });
 
-
-
+/**
+ * Router group for Home Page
+ */
 app.use('/home', home_route);
+
+/**
+ * Router group for Posts 
+ */
 app.use('/post', post_route);
+
+/**
+ * Router group for Comments
+ */
 app.use('/comment', comment_route);
+
+/**
+ * Router group for Guide
+ */
 app.use('/guide', guide_route);
+
+/**
+ * Router group for profile
+ */
 app.use('/profile', profile_route);
-app.use('/', index);            // router grouping
+
+/**
+ * Router group for index Page
+ */
+app.use('/', index);            
 
 
 
