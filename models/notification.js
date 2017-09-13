@@ -1,10 +1,12 @@
+/**
+ * notifications database modal
+ */
 
 var mongoose = require('mongoose');
-
 var schema = mongoose.Schema;
 
-var notification = new schema({
-
+var notification = new schema(
+    {
     tourist_id:{type:String,required:true},
     tourist_name:{type:String,required:true},
     telephone: {type:String,required:true},
@@ -13,7 +15,7 @@ var notification = new schema({
     status: {type:String},
     date:{type:String},
     time:{type:String}
-    
-});
+    }
+);
 
 module.exports = mongoose.model('Notification',notification);

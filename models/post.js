@@ -1,5 +1,8 @@
-var mongoose = require('mongoose');
+/**
+ * post database modal
+ */
 
+var mongoose = require('mongoose');
 var postSchema = mongoose.Schema;
 
 var schema = new postSchema(
