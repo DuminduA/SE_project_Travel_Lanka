@@ -122,6 +122,25 @@ $(document).ready(function () {
 
 
 
+        var input = document.getElementById('search');
+        var searchBox = new google.maps.places.SearchBox(input);
+
+        var markers = [];
+
+        // when a place is search in the search bar show it on the map
+        searchBox.addListener('places_changed',function(){
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0){
+                return ;
+            }
+            //focus the user has searched
+            map.setCenter(places[0].geometry.location);
+            map.setZoom(14);
+
+        });
+
+
 
     }(window , google));
 

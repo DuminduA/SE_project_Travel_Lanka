@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha --timeout 10000"
+    "test": "./node_modules/.bin/_mocha tests --timeout 10000"
+  },
+  "devDependencies":{
+    "angular-cli": "@angular/cli"
   },
   "dependencies": {
     "async": "^2.4.0",
@@ -40,6 +43,8 @@
     "multer": "^1.3.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "serve-favicon": "~2.4.2"
+    "sendgrid": "^5.1.0",
+    "serve-favicon": "~2.4.2",
+    "sinon": "^2.2.0"
   }
 }

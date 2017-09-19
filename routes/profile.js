@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var helper = require('sendgrid').mail;
+
 
 var posts = require('./../models/post');
 var notifications = require('./../models/notification');
@@ -132,9 +134,45 @@ function isNotLoggedIn(req, res,next){
     }
     else{res.redirect('/')};
 };
+router.get('/forgotpassword',function (req,res) {
+    res.render('login/forgotPassword',{layout:'layout2'});
+});
+
+router.post('/forgotpassword',function (req,res) {
 
 
 
+
+// using SendGrid's v3 Node.js Library
+// https://github.com/sendgrid/sendgrid-nodejs
+    var fromEmail = new helper.Email('travellankatouristplatform904@gmail.com');
+    var toEmail = new helper.Email();
+    var subject = 'Password reset for';
+    var content = new helper.Content('text/plain', 'and easy to do anywhere, even with Node.js');
+    var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+    var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+    var request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/mail/send',
+        body: mail.toJSON()
+    });
+
+    sg.API(request, function (error, response) {
+        if (error) {
+            console.log('Error response received');
+        }
+        console.log(response.statusCode);
+        console.log(response.body);
+        console.log(response.headers);
+    });
+
+
+
+
+
+
+});
 
 
 module.exports = router;

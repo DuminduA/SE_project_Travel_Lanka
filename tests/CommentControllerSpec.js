@@ -2,37 +2,49 @@
  * Created by dumindu on 16/05/2017.
  */
 
-describe("Comments Controller",function () {
 
+var expect = require('chai').expect;
+var mocha = require('mocha');
 
-    describe('post',function () {
-        it("should return true",function () {
-            expect(true).toBe(true);    
-        })
+var comments = require('../models/comment');
+
+describe('comment', function() {
+    it('should be invalid if text is empty', function(done) {
+        var m = new comments();
+
+        m.validate(function(err) {
+            expect(err.errors.text).to.exist;
+            done();
+        });
     });
-    
-    describe('post',function () {
-        it("should return true",function () {
-            expect(true).toBe(true);
-        })
+});
+
+describe('comment', function() {
+    it('should be invalid if text is empty', function(done) {
+        var m = new comments();
+
+        m.validate(function(err) {
+            expect(err.errors.owner_id).to.exist;
+            done();
+        });
     });
+});
 
+describe('comment', function() {
+    it('should be invalid if text is empty', function(done) {
+        var m = new comments();
 
-    
-    
-
-
+        m.validate(function(err) {
+            expect(err.errors.owner_type).to.exist;
+            done();
+        });
+    });
 });
 
 
-describe("Comments Controller",function () {
 
 
-    describe('showAll',function () {
-        it("should return true",function () {
-            expect(true).toBe(true);
-        })
-    })
 
+    
+    
 
-});

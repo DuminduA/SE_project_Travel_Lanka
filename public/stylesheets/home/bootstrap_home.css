@@ -13,7 +13,9 @@ html {
   font-weight: bolder;
   color: red;
 }
-
+nav{
+  background-color: #bee2ec;
+}
 #details{
   padding-top: 50px;
 }
@@ -22,7 +24,6 @@ html {
   padding-top: 20px;
 
 }
-
 #labal{
   font-weight: bolder;
   color: #337ab7;
@@ -268,7 +269,7 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    border-top-color: purple !important;
   }
   .label {
     border: 1px solid #000;
