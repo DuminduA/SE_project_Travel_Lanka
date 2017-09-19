@@ -112,7 +112,7 @@ var PostController = function (posts,notifications,likes,comments) {
      * @param res
      */
     var like = function (req,res) {
-        var post_id = req.params.id;
+        var post_id = req.query.id;
 
         posts.findById(post_id,function (err,post) {
             if(err){
@@ -122,7 +122,6 @@ var PostController = function (posts,notifications,likes,comments) {
                 if(err){
                     return res.send(err);
                 }
-                console.log(result);
                 if(result==0){
                     var newlike = new likes();
                     newlike.post_id = post_id;
@@ -131,21 +130,22 @@ var PostController = function (posts,notifications,likes,comments) {
                     newlike.Dislike= false;
                     newlike.save(function (err) {
                         if(err){return res.send(err);}
-                        post.Likes = post.Likes + 1;
+                        var newLikes = post.Likes = post.Likes + 1;
                         post.save(function (err) {
                             if(err){return res.send(err);}
-                            res.redirect('/profile/profile');
+                            res.json({Likes: newLikes, Dislike:0});
                         });
                     });
                 }else {
                     likes.findOne({'post_id':post_id,'user_id':req.user.id},function (err,result2) {
-                        console.log(result2.Dislike)
                         if (result2.like) {
-                            return res.redirect('/profile/profile');
+                            return res.json({Likes: post.Likes, Dislike: post.dislikes});
                         }
                         if (result2.Dislike) {
                             post.Likes = post.Likes + 1;
-                            post.dislikes = post.dislikes - 1;
+                            if(post.dislikes != 0){
+                                post.dislikes = post.dislikes - 1;
+                            }
                             post.save(function (err) {
                                 if (err) {
                                     return res.send(err);
@@ -154,7 +154,8 @@ var PostController = function (posts,notifications,likes,comments) {
                                 result2.Dislike = false;
                                 result2.save(function (err) {
                                     if(err){return res.send(err);}
-                                    return res.redirect('/profile/profile')
+                                    console.log("running......");
+                                    return res.json({Likes: post.Likes , Dislike: post.dislikes});
                                 });
                             });
                         }

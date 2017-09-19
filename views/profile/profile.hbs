@@ -1,9 +1,21 @@
-<!-- Page Content -->
+<!--
+    Page for show the user's profile page
+-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../public/javascripts/profile/like.js"></script>
 
 <script>
+    var likePost = function like(id) {
+        var request = $.get("/post/like/" ,{id : id});
 
-
+        request.done(
+                function (data) {
+                    console.log(data);
+                    document.getElementById(id+ "Like").innerHTML = "<i class=\"fa fa-thumbs-up\" aria-hidden=\"true\"></i> Like " + data["Likes"];
+                    document.getElementById(id + "Dislike").innerHTML = "<i class=\"fa fa-thumbs-down\" aria-hidden=\"true\"></i> DisLike " + data["Dislike"];
+                }
+        );
+    };
     $('document').ready(function(){
 
         $('#createpost').hide();
@@ -14,10 +26,7 @@
             $('#createpost').hide();
         });
 
-
-
     });
-
     function addLike(id) {
         $.ajax({
             url : '/post/like/' + id,
@@ -29,18 +38,9 @@
     }
 </script>
 
-
-
 <div class="container">
 
-
-
-
-
-
-        <!-- Blog Entries Column -->
         <div class="col-md-8">
-
             <h1 class="page-header">
                 Welcome {{user_name}}
                 <small>have a nice day...</small>
@@ -95,9 +95,9 @@
                 <p>{{this.text}}</p>
 
                 <div class="btn-group" role="group" aria-label="...">
-                    <a onclick="addLike(this._id)" href="/post/like/{{this._id}}" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>
+                    <button id="{{this._id}}Like" onclick="likePost('{{this._id}}');"  class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</button>
                     <!--<a onclick="addLike(this._id)" id="{{this._id}}" type="button" class="btn btn-link"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like  {{this.Likes}}</a>-->
-                    <a href="/post/dislike/{{this._id}}" id="" type="button" class="btn btn-link"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                    <a href="/post/dislike/{{this._id}}" id="{{this._id}}Dislike" type="button" class="btn btn-link"><i class="fa fa-thumbs-down" aria-hidden="true"></i>
                         DisLike  {{this.dislikes}}</a>
                 </div>
 
@@ -122,11 +122,6 @@
             {{/each}}
 
 
-
-
-
-
-
             <!-- Pager -->
             <ul class="pager">
                 <li class="previous">
@@ -139,7 +134,7 @@
 
         </div>
 
-        <!-- Blog Sidebar Widgets Column -->
+        <!--Sidebar Widgets Column -->
         <div class="col-md-4">
 
             <!-- Blog Search Well -->

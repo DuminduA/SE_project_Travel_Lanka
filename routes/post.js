@@ -27,12 +27,10 @@ router.post('/upload' ,uploading.single('image'),PostController.createpost );
 router.get('/delete/:id',PostController.deletepost);
 
 
-router.get('/like/:id',PostController.like);
-router.get('/ajax/like/:id',PostController.like);
-
+router.get('/like',PostController.like);
 
 router.get('/dislike/:id',PostController.dislike);
 
-
 module.exports = router;
+
 

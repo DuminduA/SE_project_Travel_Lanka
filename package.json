@@ -6,6 +6,9 @@
     "start": "node ./bin/www",
     "test": "./node_modules/.bin/_mocha tests --timeout 10000"
   },
+  "devDependencies":{
+    "angular-cli": "@angular/cli"
+  },
   "dependencies": {
     "async": "^2.4.0",
     "bcrypt-nodejs": "0.0.3",

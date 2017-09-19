@@ -58,11 +58,8 @@ var GuideController = function (ServiceProvider,Notification) {
                     if (err){res.send(err);}
                 });
                 res.redirect('/profile/profile');
-
             }
-
         );
-
     };
 
     /**
